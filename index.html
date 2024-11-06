@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국사 카드 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="startScreen" class="screen">
+        <h1>한국사 카드 게임</h1>
+        <button id="startButton" class="large-button">게임 시작</button>
+    </div>
+
+    <div id="gameContainer" class="screen" style="display: none;">
+        <div id="gameHeader">
+            <div id="levelInfo">
+                <h2>레벨 <span id="currentLevel">1</span></h2>
+                <div id="timerContainer">
+                    남은 시간: <span id="timer">60</span>초
+                </div>
+            </div>
+            <div id="stars">⭐⭐⭐</div>
+        </div>
+        <div id="gameBoard"></div>
+    </div>
+
+    <div id="modalOverlay" class="hidden">
+        <div id="levelCompleteModal">
+            <h2 id="modalTitle">레벨 클리어!</h2>
+            <p id="modalMessage"></p>
+            <div id="modalStars" class="stars-container"></div>
+            <div id="modalButtons">
+                <button id="nextLevelBtn" class="modal-button next-level">다음 레벨</button>
+                <button id="retryButton" class="modal-button retry-level">다시 시도</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
