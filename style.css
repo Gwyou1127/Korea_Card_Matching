@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Dokrip';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Dokrip.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +12,8 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f2f5;
+    font-family: "Dokrip";
+    background-color: beige;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -33,6 +40,7 @@ h1 {
 }
 
 .large-button {
+    font-family: "Dokrip";
     padding: 15px 30px;
     font-size: 1.2em;
     background-color: #007bff;
@@ -193,6 +201,17 @@ h1 {
 .hidden {
     display: none !important;
 }
+
+#answersScreen {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 /* 반응형 디자인 */
 @media (max-width: 600px) {

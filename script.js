@@ -1,62 +1,94 @@
-// 게임 레벨 데이터
-const gameLevels = [
+const cardPool = [
+    { question: "한국의 독립 선언일은?", answer: "1919년 3월 1일" },
+    { question: "임시정부가 수립된 도시는?", answer: "상하이" },
+    { question: "독립선언서 낭독 장소는?", answer: "태화관" },
+    { question: "조선어학회 사건이 일어난 연도는?", answer: "1942년" },
+    { question: "신간회의 강령 3가지 중 하나는?", answer: "비타협적 민족운동" },
+    { question: "한글날의 원래 이름은?", answer: "가갸날" },
+    { question: "병인양요가 일어난 연도는?", answer: "1866년" },
+    { question: "조선 최초의 신문은?", answer: "한성순보" },
+    { question: "신미양요의 발단이 된 사건은?", answer: "제너럴셔먼호 사건" },
+    { question: "105인 사건을 조작한 총독은?", answer: "데라우치" },
+    { question: "국채보상운동을 시작한 사람은?", answer: "서상돈" },
+    { question: "조선어학회가 만든 것은?", answer: "한글맞춤법통일안" },
+    { question: "조선총독부 초대 경무총장은?", answer: "마루야마" },
+    { question: "조선어학회 사건 당시 투옥된 인원은?", answer: "33명" },
+    { question: "신간회 해소 이유 중 하나는?", answer: "민중대회 사건" },
+    { question: "국권피탈 직전 군대해산 연도는?", answer: "1907년" },
+    { question: "강화도조약 체결 시기는?", answer: "1876년 2월" },
+    { question: "교조신원운동을 주도한 교단은?", answer: "동학" },
+    { question: "조선혁명선언을 작성한 사람은?", answer: "신채호" },
+    { question: "한국광복군 총사령관은?", answer: "지청천" },
+    { question: "황국신민서사의 시행 연도는?", answer: "1937년" },
+    { question: "조선총독부의 노동쟁의조정법 시행연도는?", answer: "1923년" },
+    { question: "브나로드 운동을 전개한 단체는?", answer: "동아일보" },
+    { question: "민립대학 설립운동의 목표 금액은?", answer: "1천만원" },
+    { question: "경성제국대학 설립 연도는?", answer: "1924년" },
+    { question: "치안유지법이 제정된 연도는?", answer: "1925년" },
+    { question: "조선청년독립단의 결성 장소는?", answer: "삼원보" },
+    { question: "정철의 관동별곡 창작 시기는?", answer: "1580년" },
+    { question: "조선어학회 회장은?", answer: "이윤재" },
+    { question: "조선총독부 설치 법령 공포일은?", answer: "1910년 9월 30일" },
+    { question: "한글맞춤법통일안 공표 연도는?", answer: "1933년" },
+    { question: "육영공원의 설립 연도는?", answer: "1886년" },
+    { question: "독립협회의 해산 연도는?", answer: "1898년" },
+    { question: "조선형평사의 설립 목적은?", answer: "백정 차별 철폐" },
+    { question: "원산학사의 설립 연도는?", answer: "1883년" },
+    { question: "조선어연구회의 초대 회장은?", answer: "주시경" },
+    { question: "국문연구소가 설치된 연도는?", answer: "1907년" },
+    { question: "대한매일신보의 발행인은?", answer: "베델" },
+    { question: "105인 사건의 발생 연도는?", answer: "1911년" },
+    { question: "한국독립운동지혈사의 저자는?", answer: "박은식" }
+];
+
+const levelSettings  = [
     {
         level: 1,
-        size: 4, // 2x2
-        timeLimit: 60,
-        cards: [
-            { question: "한국의 독립 선언일은?", answer: "1919년 3월 1일" },
-            { question: "임시정부가 수립된 도시는?", answer: "상하이" }
-        ]
+        size: 6, // 3x2
+        rows: 2,
+        cols: 3,
+        timeLimit: 45,
+        maxStars: 3
     },
     {
         level: 2,
-        size: 6, // 3x2
-        timeLimit: 90,
-        cards: [
-            { question: "독립운동가 이승만의 직위는?", answer: "대한민국 초대 대통령" },
-            { question: "대한민국의 첫 번째 헌법은?", answer: "1948년 헌법" },
-            { question: "한국 광복군은 어떤 나라와 전투를 했나요?", answer: "일본" }
-        ]
+        size: 8, // 4x2
+        rows: 2,
+        cols: 4,
+        timeLimit: 60,
+        maxStars: 4
     },
     {
         level: 3,
-        size: 8, // 4x2
-        timeLimit: 120,
-        cards: [
-            { question: "3.1 운동의 주요 목적은?", answer: "대한민국의 독립" },
-            { question: "한민족의 자주독립을 주장한 사상가는?", answer: "안중근" },
-            { question: "독립군의 주요 활동지는?", answer: "만주" },
-            { question: "신간회는 언제 설립되었나요?", answer: "1927년" }
-        ]
+        size: 12, // 4x3
+        rows: 3,
+        cols: 4,
+        timeLimit: 90,
+        maxStars: 4
     },
     {
         level: 4,
-        size: 12, // 4x3
-        timeLimit: 150,
-        cards: [
-            { question: "한국광복군 총사령관은?", answer: "지청천" },
-            { question: "윤봉길 의사의 의거 장소는?", answer: "홍커우 공원" },
-            { question: "대한민국 임시정부의 초대 대통령은?", answer: "이승만" },
-            { question: "조선어학회가 만든 것은?", answer: "한글맞춤법통일안" },
-            { question: "청산리 전투의 승리를 이끈 장군은?", answer: "김좌진" },
-            { question: "1940년 한국광복군이 창설된 도시는?", answer: "충칭" }
-        ]
+        size: 16, // 4x4
+        rows: 4,
+        cols: 4,
+        timeLimit: 120,
+        maxStars: 5
     },
     {
         level: 5,
-        size: 16, // 4x4
+        size: 24, // 6x4
+        rows: 4,
+        cols: 6,
+        timeLimit: 150,
+        maxStars: 5
+    },
+    {
+        level: 6,
+        size: 30, // 6x5
+        rows: 5,
+        cols: 6,
         timeLimit: 180,
-        cards: [
-            { question: "한국독립당을 창당한 인물은?", answer: "김구" },
-            { question: "봉오동 전투의 승리를 이끈 장군은?", answer: "홍범도" },
-            { question: "대한민국 임시헌장이 반포된 연도는?", answer: "1919년" },
-            { question: "조선물산장려운동의 주요 구호는?", answer: "내 살림 내 것으로" },
-            { question: "신흥무관학교의 설립 목적은?", answer: "독립군 양성" },
-            { question: "민족대표 33인의 대표는?", answer: "손병희" },
-            { question: "조선어학회 사건이 일어난 연도는?", answer: "1942년" },
-            { question: "한인애국단을 조직한 인물은?", answer: "김구" }
-        ]
+        maxStars: 6
     }
 ];
 
@@ -70,6 +102,7 @@ let matchedPairs = 0;
 let timeLeft;
 let timerInterval;
 let starsCount = 3;
+let previewTimeout;
 
 // DOM 요소
 const startScreen = document.getElementById('startScreen');
@@ -88,7 +121,12 @@ const starsContainer = document.getElementById('stars');
 
 // 별 업데이트 함수
 function updateStars() {
-    starsContainer.textContent = '⭐'.repeat(starsCount);
+    const levelData = levelSettings[currentLevel - 1];
+    const maxStars = levelData.maxStars;
+    const emptyStars = maxStars - starsCount;
+    
+    // 채워진 별과 빈 별을 함께 표시
+    starsContainer.textContent = '⭐'.repeat(starsCount) + '☆'.repeat(emptyStars);
 }
 
 // 게임 시작
@@ -98,15 +136,60 @@ document.getElementById('startButton').addEventListener('click', () => {
     startLevel(1);
 });
 
+// 카드 랜덤 선택 함수
+function getRandomCards(count) {
+    let shuffledPool = [...cardPool];
+    for (let i = shuffledPool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledPool[i], shuffledPool[j]] = [shuffledPool[j], shuffledPool[i]];
+    }
+    return shuffledPool.slice(0, count);
+}
+
+let currentLevelCards = [];
+
 // 레벨 시작
 function startLevel(level) {
     currentLevel = level;
     currentLevelSpan.textContent = level;
-    starsCount = 3; // 별 개수 초기화
-    updateStars(); // 별 표시 업데이트
+
+    const levelData = levelSettings[currentLevel - 1];
+    const selectedCards = getRandomCards(levelData.size / 2);  // 필요한 카드 쌍만 선택
+
+    currentLevelCards = selectedCards;  // 선택한 카드 쌍 저장
+
+    const currentGameLevel = {
+        ...levelData,
+        cards: selectedCards
+    };
+
+    starsCount = levelData.maxStars;
+    updateStars();
     resetGameState();
-    createBoard();
-    startTimer();
+    createBoard(currentGameLevel);
+
+    showAllCards();
+
+    previewTimeout = setTimeout(() => {
+        hideAllCards();
+        startTimer();
+    }, 3000);
+}
+
+function showAllCards() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.classList.add('flipped');
+    });
+    lockBoard = true; // 미리보기 중에는 카드 클릭 방지
+}
+
+function hideAllCards() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.classList.remove('flipped');
+    });
+    lockBoard = false; // 카드 클릭 가능하도록 설정
 }
 
 // 게임 상태 초기화
@@ -117,14 +200,16 @@ function resetGameState() {
     lockBoard = false;
     matchedPairs = 0;
     if (timerInterval) clearInterval(timerInterval);
+    if (previewTimeout) clearTimeout(previewTimeout); // 미리보기 타이머 초기화
 }
 
 // 보드 생성
-function createBoard() {
+function createBoard(levelData) {
     gameBoard.innerHTML = '';
-    const levelData = gameLevels[currentLevel - 1];
-    const columns = Math.ceil(Math.sqrt(levelData.size));
-    gameBoard.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    
+    // 행과 열에 따라 그리드 설정
+    gameBoard.style.gridTemplateColumns = `repeat(${levelData.cols}, 1fr)`;
+    gameBoard.style.gridTemplateRows = `repeat(${levelData.rows}, 1fr)`;
     
     // 카드 값 생성
     cardValues = [];
@@ -188,57 +273,63 @@ function checkForMatch() {
     let isMatch = false;
     
     if (firstCard.dataset.type === "question" && secondCard.dataset.type === "answer") {
-        const matchingCard = gameLevels[currentLevel - 1].cards.find(card => 
+        const matchingCard = cardPool.find(card => 
             card.question === firstCard.dataset.value && 
             card.answer === secondCard.dataset.value
         );
         isMatch = !!matchingCard;
     } else if (firstCard.dataset.type === "answer" && secondCard.dataset.type === "question") {
-        const matchingCard = gameLevels[currentLevel - 1].cards.find(card => 
+        const matchingCard = cardPool.find(card => 
             card.answer === firstCard.dataset.value && 
             card.question === secondCard.dataset.value
         );
         isMatch = !!matchingCard;
     }
 
-    isMatch ? disableCards() : unflipCards();
+    if (isMatch) {
+        disableCards();
+    } else {
+        unflipCards();
+    }
 }
 
 // 매치 성공 처리
 function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
-    resetBoard();
-
+    resetBoard();  // lockBoard 해제
     matchedPairs++;
-    const levelData = gameLevels[currentLevel - 1];
-    
-    if (matchedPairs === levelData.cards.length) {
+
+    const levelData = levelSettings[currentLevel - 1];
+    if (matchedPairs === levelData.size / 2) {
         levelComplete();
     }
 }
 
 // 매치 실패 처리
 function unflipCards() {
+    // 별 갯수 감소 및 업데이트
+    if (starsCount > 0) {
+        starsCount--;
+        setTimeout(() => {
+            updateStars();  // 별 표시 업데이트
+        }, 200)
+
+        // 별이 0개가 되면 게임 오버 처리
+        if (starsCount === 0) {
+            showGameOver('stars');
+            return;
+        }
+    }
+
+    // 1초 후 카드 뒤집기
     setTimeout(() => {
         firstCard.classList.remove('flipped');
         secondCard.classList.remove('flipped');
         resetBoard();
-        
-        // 별 개수 감소
-        if (starsCount > 0) { // 최소 1개의 별은 유지
-            starsCount--;
-            updateStars();
-
-
-            // 별이 다 소진되면 게임 오버
-            if (starsCount === 0) {
-                clearInterval(timerInterval);
-                showGameOver('stars')
-            }
-        }
     }, 1000);
 }
+
 
 // 보드 상태 초기화
 function resetBoard() {
@@ -247,7 +338,7 @@ function resetBoard() {
 
 // 타이머 시작
 function startTimer() {
-    const levelData = gameLevels[currentLevel - 1];
+    const levelData = levelSettings[currentLevel - 1];
     timeLeft = levelData.timeLimit;
     timerSpan.textContent = timeLeft;
 
@@ -262,13 +353,22 @@ function startTimer() {
     }, 1000);
 }
 
+function showLevelAnswers() {
+    const levelAnswersContainer = document.getElementById('levelAnswers');
+    levelAnswersContainer.innerHTML = '';  // 기존 정답 내용을 비웁니다.
+    // 정답 대신에 비어있는 상태로 유지
+}
+
 // 레벨 완료 처리
 function levelComplete() {
     clearInterval(timerInterval);
+
     modalTitle.textContent = `레벨 ${currentLevel} 클리어!`;
     modalMessage.textContent = `축하합니다! ${starsCount}개의 별을 획득했습니다!`;
-    modalStars.textContent = '⭐'.repeat(starsCount);
-    modalOverlay.classList.remove('hidden');  // 변경된 부분
+    modalStars.textContent = '⭐'.repeat(starsCount) + '☆'.repeat(levelSettings[currentLevel - 1].maxStars - starsCount);
+    
+    showLevelAnswers();  // 카드 쌍 표시
+    modalOverlay.classList.remove('hidden');
     nextLevelBtn.style.display = 'inline-block';
 }
 
@@ -289,16 +389,12 @@ retryButton.addEventListener('click', () => {
 function showGameOver(reason) {
     clearInterval(timerInterval);
     modalTitle.textContent = '게임 오버';
-    
-    if (reason === 'stars') {
-        modalMessage.textContent = '별을 모두 소진했습니다! 더 신중하게 도전해보세요.';
-    } else {
-        modalMessage.textContent = `시간이 초과되었습니다! ${starsCount}개의 별이 남았습니다.`;
-    }
-    
-    modalStars.textContent = '⭐'.repeat(starsCount);
-    modalOverlay.classList.remove('hidden');  // 변경된 부분
-    nextLevelBtn.style.display = 'none';  // 게임 오버시 다음 레벨 버튼 숨기기
+    modalMessage.textContent = reason === 'stars' ? '모든 별을 잃었습니다! 다시 도전해보세요.' : '시간이 초과되었습니다!';
+    modalStars.textContent = '☆'.repeat(starsCount);
+
+    showLevelAnswers();  // 카드 쌍 표시
+    modalOverlay.classList.remove('hidden');
+    nextLevelBtn.style.display = 'none';
 }
 
 // 카드 셔플 함수
@@ -307,4 +403,41 @@ function shuffle(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+}
+
+
+// 정답 보기 버튼 클릭 이벤트 연결
+document.getElementById('viewAnswersButton').addEventListener('click', viewAnswers);
+
+// 정답 화면 생성 함수
+function viewAnswers() {
+    // 모달 숨기기
+    modalOverlay.classList.add('hidden');
+    
+    // 정답 화면 대신 빈 화면 또는 텍스트를 추가할 수 있습니다.
+    const answersContainer = document.createElement('div');
+    answersContainer.id = 'answersScreen';
+    answersContainer.style.padding = '20px';
+    answersContainer.style.backgroundColor = 'white';
+    answersContainer.style.borderRadius = '10px';
+    answersContainer.style.maxWidth = '600px';
+    answersContainer.style.margin = '20px auto';
+    answersContainer.style.textAlign = 'center';
+
+    const title = document.createElement('h2');
+    title.textContent = "레벨 정답은 숨김 처리되었습니다.";
+    answersContainer.appendChild(title);
+
+    // 뒤로 가기 버튼만 추가
+    const backButton = document.createElement('button');
+    backButton.textContent = "뒤로 가기";
+    backButton.classList.add('modal-button');
+    backButton.style.marginTop = '20px';
+    backButton.addEventListener('click', () => {
+        answersContainer.remove();
+        modalOverlay.classList.remove('hidden');
+    });
+    answersContainer.appendChild(backButton);
+
+    document.body.appendChild(answersContainer);
 }
