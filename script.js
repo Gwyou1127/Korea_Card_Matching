@@ -47,50 +47,45 @@ const levelSettings  = [
         size: 6, // 3x2
         rows: 2,
         cols: 3,
-        timeLimit: 45,
-        maxStars: 3
+        timeLimit: 45
     },
     {
         level: 2,
         size: 8, // 4x2
         rows: 2,
         cols: 4,
-        timeLimit: 60,
-        maxStars: 4
+        timeLimit: 60
     },
     {
         level: 3,
         size: 12, // 4x3
         rows: 3,
         cols: 4,
-        timeLimit: 90,
-        maxStars: 4
+        timeLimit: 90
     },
     {
         level: 4,
         size: 16, // 4x4
         rows: 4,
         cols: 4,
-        timeLimit: 120,
-        maxStars: 5
+        timeLimit: 120
     },
     {
         level: 5,
         size: 24, // 6x4
         rows: 4,
         cols: 6,
-        timeLimit: 150,
-        maxStars: 5
+        timeLimit: 150
     },
     {
         level: 6,
         size: 30, // 6x5
         rows: 5,
         cols: 6,
-        timeLimit: 180,
-        maxStars: 6
+        timeLimit: 180
     }
 ];
+
 
 // 게임 상태 변수
 let currentLevel = 1;
@@ -101,7 +96,6 @@ let lockBoard = false;
 let matchedPairs = 0;
 let timeLeft;
 let timerInterval;
-let starsCount = 3;
 let previewTimeout;
 
 // DOM 요소
@@ -114,25 +108,14 @@ const modalOverlay = document.getElementById('modalOverlay');
 const levelCompleteModal = document.getElementById('levelCompleteModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalMessage = document.getElementById('modalMessage');
-const modalStars = document.getElementById('modalStars');
+const viewAnswersBtn = document.getElementById('viewAnswersBtn');
 const nextLevelBtn = document.getElementById('nextLevelBtn');
-const retryButton = document.getElementById('retryButton');
-const starsContainer = document.getElementById('stars');
-
-// 별 업데이트 함수
-function updateStars() {
-    const levelData = levelSettings[currentLevel - 1];
-    const maxStars = levelData.maxStars;
-    const emptyStars = maxStars - starsCount;
-    
-    // 채워진 별과 빈 별을 함께 표시
-    starsContainer.textContent = '⭐'.repeat(starsCount) + '☆'.repeat(emptyStars);
-}
+const retryBtn = document.getElementById('retryBtn');
 
 // 게임 시작
 document.getElementById('startButton').addEventListener('click', () => {
-    startScreen.style.display = 'none';
-    gameContainer.style.display = 'block';
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('gameContainer').style.display = 'block';
     startLevel(1);
 });
 
@@ -154,20 +137,16 @@ function startLevel(level) {
     currentLevelSpan.textContent = level;
 
     const levelData = levelSettings[currentLevel - 1];
-    const selectedCards = getRandomCards(levelData.size / 2);  // 필요한 카드 쌍만 선택
-
-    currentLevelCards = selectedCards;  // 선택한 카드 쌍 저장
+    const selectedCards = getRandomCards(levelData.size / 2);
+    currentLevelCards = selectedCards;
 
     const currentGameLevel = {
         ...levelData,
         cards: selectedCards
     };
 
-    starsCount = levelData.maxStars;
-    updateStars();
     resetGameState();
     createBoard(currentGameLevel);
-
     showAllCards();
 
     previewTimeout = setTimeout(() => {
@@ -181,7 +160,7 @@ function showAllCards() {
     cards.forEach(card => {
         card.classList.add('flipped');
     });
-    lockBoard = true; // 미리보기 중에는 카드 클릭 방지
+    lockBoard = true;
 }
 
 function hideAllCards() {
@@ -189,7 +168,7 @@ function hideAllCards() {
     cards.forEach(card => {
         card.classList.remove('flipped');
     });
-    lockBoard = false; // 카드 클릭 가능하도록 설정
+    lockBoard = false;
 }
 
 // 게임 상태 초기화
@@ -200,18 +179,16 @@ function resetGameState() {
     lockBoard = false;
     matchedPairs = 0;
     if (timerInterval) clearInterval(timerInterval);
-    if (previewTimeout) clearTimeout(previewTimeout); // 미리보기 타이머 초기화
+    if (previewTimeout) clearTimeout(previewTimeout);
 }
 
 // 보드 생성
 function createBoard(levelData) {
     gameBoard.innerHTML = '';
     
-    // 행과 열에 따라 그리드 설정
     gameBoard.style.gridTemplateColumns = `repeat(${levelData.cols}, 1fr)`;
     gameBoard.style.gridTemplateRows = `repeat(${levelData.rows}, 1fr)`;
     
-    // 카드 값 생성
     cardValues = [];
     levelData.cards.forEach(({ question, answer }) => {
         cardValues.push({ text: question, type: "question" });
@@ -220,7 +197,6 @@ function createBoard(levelData) {
     
     shuffle(cardValues);
     
-    // 카드 생성
     cardValues.forEach(item => {
         const card = createCard(item);
         gameBoard.appendChild(card);
@@ -297,7 +273,7 @@ function checkForMatch() {
 function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
-    resetBoard();  // lockBoard 해제
+    resetBoard();
     matchedPairs++;
 
     const levelData = levelSettings[currentLevel - 1];
@@ -308,21 +284,6 @@ function disableCards() {
 
 // 매치 실패 처리
 function unflipCards() {
-    // 별 갯수 감소 및 업데이트
-    if (starsCount > 0) {
-        starsCount--;
-        setTimeout(() => {
-            updateStars();  // 별 표시 업데이트
-        }, 200)
-
-        // 별이 0개가 되면 게임 오버 처리
-        if (starsCount === 0) {
-            showGameOver('stars');
-            return;
-        }
-    }
-
-    // 1초 후 카드 뒤집기
     setTimeout(() => {
         firstCard.classList.remove('flipped');
         secondCard.classList.remove('flipped');
@@ -362,26 +323,27 @@ function showLevelAnswers() {
 // 레벨 완료 처리
 function levelComplete() {
     clearInterval(timerInterval);
-
     modalTitle.textContent = `레벨 ${currentLevel} 클리어!`;
-    modalMessage.textContent = `축하합니다! ${starsCount}개의 별을 획득했습니다!`;
-    modalStars.textContent = '⭐'.repeat(starsCount) + '☆'.repeat(levelSettings[currentLevel - 1].maxStars - starsCount);
-    
-    showLevelAnswers();  // 카드 쌍 표시
-    modalOverlay.classList.remove('hidden');
+    modalMessage.textContent = '축하합니다!';
     nextLevelBtn.style.display = 'inline-block';
-}
+    modalOverlay.classList.remove('hidden');
+}   
 
 // 다음 레벨로 이동
 nextLevelBtn.addEventListener('click', () => {
-    modalOverlay.classList.add('hidden');  // 변경된 부분
-    startLevel(currentLevel + 1);
+    modalOverlay.classList.add('hidden');
+    if (currentLevel < levelSettings.length) {
+        startLevel(currentLevel + 1);
+    } else {
+        modalMessage.textContent = '모든 레벨을 클리어하셨습니다!';
+        nextLevelBtn.style.display = 'none';
+    }
 });
 
-// 재시작 처리
-retryButton.addEventListener('click', () => {
-    modalOverlay.classList.add('hidden');  // 변경된 부분
-    nextLevelBtn.style.display = 'inline-block';  // 재시작시 다음 레벨 버튼 다시 표시
+// 다시 시도 버튼 이벤트 리스너
+retryBtn.addEventListener('click', () => {
+    modalOverlay.classList.add('hidden');
+    nextLevelBtn.style.display = 'inline-block';
     startLevel(currentLevel);
 });
 
@@ -389,12 +351,9 @@ retryButton.addEventListener('click', () => {
 function showGameOver(reason) {
     clearInterval(timerInterval);
     modalTitle.textContent = '게임 오버';
-    modalMessage.textContent = reason === 'stars' ? '모든 별을 잃었습니다! 다시 도전해보세요.' : '시간이 초과되었습니다!';
-    modalStars.textContent = '☆'.repeat(starsCount);
-
-    showLevelAnswers();  // 카드 쌍 표시
-    modalOverlay.classList.remove('hidden');
+    modalMessage.textContent = '시간이 초과되었습니다!';
     nextLevelBtn.style.display = 'none';
+    modalOverlay.classList.remove('hidden');
 }
 
 // 카드 셔플 함수
@@ -407,14 +366,8 @@ function shuffle(array) {
 
 
 // 정답 보기 버튼 클릭 이벤트 연결
-document.getElementById('viewAnswersButton').addEventListener('click', viewAnswers);
-
-// 정답 화면 생성 함수
-function viewAnswers() {
-    // 모달 숨기기
+viewAnswersBtn.addEventListener('click', () => {
     modalOverlay.classList.add('hidden');
-    
-    // 정답 화면 대신 빈 화면 또는 텍스트를 추가할 수 있습니다.
     const answersContainer = document.createElement('div');
     answersContainer.id = 'answersScreen';
     answersContainer.style.padding = '20px';
@@ -425,10 +378,23 @@ function viewAnswers() {
     answersContainer.style.textAlign = 'center';
 
     const title = document.createElement('h2');
-    title.textContent = "레벨 정답은 숨김 처리되었습니다.";
+    title.textContent = `레벨 ${currentLevel} 카드 목록`;
     answersContainer.appendChild(title);
 
-    // 뒤로 가기 버튼만 추가
+    const answersList = document.createElement('div');
+    answersList.style.marginTop = '20px';
+    currentLevelCards.forEach((card, index) => {
+        const cardDiv = document.createElement('div');
+        cardDiv.style.margin = '10px 0';
+        cardDiv.style.padding = '10px';
+        cardDiv.style.border = '1px solid #ddd';
+        cardDiv.style.borderRadius = '5px';
+        cardDiv.innerHTML = `<strong>문제 ${index + 1}:</strong> ${card.question}<br>
+                           <strong>답:</strong> ${card.answer}`;
+        answersList.appendChild(cardDiv);
+    });
+    answersContainer.appendChild(answersList);
+
     const backButton = document.createElement('button');
     backButton.textContent = "뒤로 가기";
     backButton.classList.add('modal-button');
@@ -437,7 +403,7 @@ function viewAnswers() {
         answersContainer.remove();
         modalOverlay.classList.remove('hidden');
     });
-    answersContainer.appendChild(backButton);
 
+    answersContainer.appendChild(backButton);
     document.body.appendChild(answersContainer);
-}
+});
