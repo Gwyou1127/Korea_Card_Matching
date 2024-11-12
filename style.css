@@ -79,11 +79,6 @@ h1 {
     font-weight: bold;
 }
 
-#stars {
-    font-size: 1.5em;
-    color: #ffd700;
-}
-
 #gameBoard {
     display: grid;
     gap: 10px;
@@ -125,8 +120,9 @@ h1 {
 }
 
 .card-front {
-    background-color: #007bff;
-    /* background-image: url(./img/태극기.jpg); */
+    /* background-color: #007bff; */
+    background-image: url(./img/다운로드.jpg);
+    transform: rotate(random_degree_value_here)deg;
     background-repeat: no-repeat;
     background-size: cover;
     border: 1px solid black;
@@ -138,13 +134,26 @@ h1 {
 
 .card-back {
     background-color: white;
-    border: 2px solid #007bff;
+    border: 2px solid #333;
     transform: rotateY(180deg);
 }
 
 .card.matched .card-back {
-    background-color: #90EE90;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.5s;
 }
+
+.card.unmatched .card-back {
+    background-image: url('./img/x-mark.png');
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 0.5s;
+}
+/* .card.unmatched {
+    background-image: none;
+} */
 
 /* Modal Styles */
 #modalOverlay {
@@ -211,6 +220,7 @@ h1 {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 
 
 /* 반응형 디자인 */

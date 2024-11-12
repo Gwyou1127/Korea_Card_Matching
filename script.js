@@ -1,3 +1,5 @@
+import TimerBar from './components/TimerBar';
+
 const cardPool = [
     { question: "한국의 독립 선언일은?", answer: "1919년 3월 1일" },
     { question: "임시정부가 수립된 도시는?", answer: "상하이" },
@@ -111,6 +113,7 @@ const modalMessage = document.getElementById('modalMessage');
 const viewAnswersBtn = document.getElementById('viewAnswersBtn');
 const nextLevelBtn = document.getElementById('nextLevelBtn');
 const retryBtn = document.getElementById('retryBtn');
+const skipLevelBtn = document.getElementById('skipLevelBtn');
 
 // 게임 시작
 document.getElementById('startButton').addEventListener('click', () => {
@@ -265,17 +268,28 @@ function checkForMatch() {
     if (isMatch) {
         disableCards();
     } else {
-        unflipCards();
+        setTimeout(() => {
+            firstCard.classList.remove('unmatched');
+            secondCard.classList.remove('unmatched');
+            unflipCards();
+        }, 1500);
     }
 }
 
 // 매치 성공 처리
 function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
+    firstCard.classList.add('matched');
+    secondCard.classList.add('matched');
+    firstCard.classList.remove('unmatched');
+    secondCard.classList.remove('unmatched');
     resetBoard();
     matchedPairs++;
 
+    setTimeout(() => {
+        firstCard.classList.add('blue');
+        secondCard.classList.add('blue');
+    }, 500);
+    
     const levelData = levelSettings[currentLevel - 1];
     if (matchedPairs === levelData.size / 2) {
         levelComplete();
@@ -284,13 +298,21 @@ function disableCards() {
 
 // 매치 실패 처리
 function unflipCards() {
+    lockBoard = true;
+    setTimeout(() => {
+        firstCard.classList.add('unmatched');
+        secondCard.classList.add('unmatched');
+    },300)
+    setTimeout(() => {
+        firstCard.classList.remove('unmatched');
+        secondCard.classList.remove('unmatched');
+    }, 1000);
     setTimeout(() => {
         firstCard.classList.remove('flipped');
         secondCard.classList.remove('flipped');
         resetBoard();
     }, 1000);
 }
-
 
 // 보드 상태 초기화
 function resetBoard() {
@@ -406,4 +428,15 @@ viewAnswersBtn.addEventListener('click', () => {
 
     answersContainer.appendChild(backButton);
     document.body.appendChild(answersContainer);
+});
+
+skipLevelBtn.addEventListener('click', () => {
+    modalOverlay.classList.add('hidden');
+    if (currentLevel < levelSettings.length) {
+        startLevel(currentLevel + 1);
+    } else {
+        modalMessage.textContent = '모든 레벨을 클리어하셨습니다!';
+        nextLevelBtn.style.display = 'none';
+        skipLevelBtn.style.display = 'none';
+    }
 });
