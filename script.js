@@ -1,46 +1,57 @@
-import TimerBar from './components/TimerBar';
-
 const cardPool = [
-    { question: "한국의 독립 선언일은?", answer: "1919년 3월 1일" },
-    { question: "임시정부가 수립된 도시는?", answer: "상하이" },
-    { question: "독립선언서 낭독 장소는?", answer: "태화관" },
-    { question: "조선어학회 사건이 일어난 연도는?", answer: "1942년" },
-    { question: "신간회의 강령 3가지 중 하나는?", answer: "비타협적 민족운동" },
-    { question: "한글날의 원래 이름은?", answer: "가갸날" },
-    { question: "병인양요가 일어난 연도는?", answer: "1866년" },
-    { question: "조선 최초의 신문은?", answer: "한성순보" },
-    { question: "신미양요의 발단이 된 사건은?", answer: "제너럴셔먼호 사건" },
-    { question: "105인 사건을 조작한 총독은?", answer: "데라우치" },
+    { question: "\"세월을 헛되이 보내지 마라, 청춘은 다시 돌아오지 않는다.\"를 말한 독립운동가는?", answer: "안중근" },
+    { question: "\"나라에 바칠 목숨이 하나밖에 없는 것이 이 소녀의 유일한 슬픔입니다.\"를 말한 독립운동가는?", answer: "유관순" },
+    { question: "명동성당에서 군밤장수로 변장하여 이완용을 암살 시도한 독립운동가는?", answer: "이재명" },
+    { question: "\"그대는 나라를 사랑하는가. 그러면 먼저 그대가 건전한 인격이 되라.\"를 말한 독립운동가는?", answer: "안창호" },
+    { question: "1920년 봉오동에서 일본군 대부대를 전멸시키는 전과를 올린 독립운동가는?", answer: "홍범도" },
     { question: "국채보상운동을 시작한 사람은?", answer: "서상돈" },
-    { question: "조선어학회가 만든 것은?", answer: "한글맞춤법통일안" },
-    { question: "조선총독부 초대 경무총장은?", answer: "마루야마" },
-    { question: "조선어학회 사건 당시 투옥된 인원은?", answer: "33명" },
-    { question: "신간회 해소 이유 중 하나는?", answer: "민중대회 사건" },
-    { question: "국권피탈 직전 군대해산 연도는?", answer: "1907년" },
-    { question: "강화도조약 체결 시기는?", answer: "1876년 2월" },
-    { question: "교조신원운동을 주도한 교단은?", answer: "동학" },
-    { question: "조선혁명선언을 작성한 사람은?", answer: "신채호" },
     { question: "한국광복군 총사령관은?", answer: "지청천" },
-    { question: "황국신민서사의 시행 연도는?", answer: "1937년" },
-    { question: "조선총독부의 노동쟁의조정법 시행연도는?", answer: "1923년" },
-    { question: "브나로드 운동을 전개한 단체는?", answer: "동아일보" },
-    { question: "민립대학 설립운동의 목표 금액은?", answer: "1천만원" },
-    { question: "경성제국대학 설립 연도는?", answer: "1924년" },
-    { question: "치안유지법이 제정된 연도는?", answer: "1925년" },
-    { question: "조선청년독립단의 결성 장소는?", answer: "삼원보" },
-    { question: "정철의 관동별곡 창작 시기는?", answer: "1580년" },
-    { question: "조선어학회 회장은?", answer: "이윤재" },
     { question: "조선총독부 설치 법령 공포일은?", answer: "1910년 9월 30일" },
     { question: "한글맞춤법통일안 공표 연도는?", answer: "1933년" },
-    { question: "육영공원의 설립 연도는?", answer: "1886년" },
     { question: "독립협회의 해산 연도는?", answer: "1898년" },
-    { question: "조선형평사의 설립 목적은?", answer: "백정 차별 철폐" },
-    { question: "원산학사의 설립 연도는?", answer: "1883년" },
-    { question: "조선어연구회의 초대 회장은?", answer: "주시경" },
     { question: "국문연구소가 설치된 연도는?", answer: "1907년" },
-    { question: "대한매일신보의 발행인은?", answer: "베델" },
     { question: "105인 사건의 발생 연도는?", answer: "1911년" },
-    { question: "한국독립운동지혈사의 저자는?", answer: "박은식" }
+    { question: "한국독립운동지혈사 저자는?", answer: "박은식" },
+    { question: "\"야만 섬나라의 불학 무식한 놈아 너는 흉 자만 의 자는 모르느냐 나는 흉행이 나라 당당한 의행을 한 것이다\"를 말한 독립운동가는?", answer: "이재명" },
+    { question: "\"그대는 나라를 사랑하는가. 그러면 먼저 그대가 건전한 인격이 되라.\"를 말한 독립운동가는?", answer: "안창호"},
+    { question: "\"나는 무식하지만 한가지만은 똑똑히 안다. 내 땅을 남에게 빼앗기지 말아야 한다는 것이다.\"를 말한 독립운동가는?", answer: "홍범도"},
+    { question: "\"나라 없는 몸, 무덤은 있어 무엇하랴.\"를 말한 독립운동가는?", answer: "김동삼"},
+    { question: "\"살길은 하나다. 힘을 모으자.\"를 말한 독립운동가는?", answer: "지청전"},
+    { question: "\"힘을 모아 도와주세, 우리의 명 만세로다.\"를 말한 독립운동가는?", answer: "윤희순"},
+    { question: "\"먼 곳을 향하는 생각이 없다면 큰일을 이루기 어렵다.\"를 말한 독립운동가는?", answer: "안중근"},
+    { question: "\"뿌리 없는 나무가 어디에서 날 것이며, 나라 없는 백성이 어디서 살 것인가.\"를 말한 독립운동가는?", answer: "안중근"},
+    { question: "\"사람이 죽고 사는 것이 먹는데 있는 것이 아니고 정신에 있다. 독립은 정신으로 이루어지느니라.\"를 말한 독립운동가는?", answer: "남자현"},
+    { question: "윤봉길 의사의 폭탄 투하를 도운 여성 독립운동가는?", answer: "이화림"},
+    { question: "김구가 창설한 \'한인애국단\'에 가입한 여성 독립운동가는?", answer: "이화림"},
+    { question: "독립운동가인 안중근 의사의 어머니는?", answer: "조마리아"},
+    { question: "국채보상운동에 적극 참여하고, 독립운동 자금을 모으기 위해 노력한 여성 독립운동가는?", answer: "조마리아"},
+    { question: "독립운동가들에게 숙박 및 식사를 제공하고, 뒷바라지에 힘쓴 여성 독립운동가는?", answer: "조마리아"},
+    { question: "조선총독부 병원에서 간호사로 근무하였고, 조선인 부상자를 치료한 여성 독립운동가는?", answer: "박자혜"},
+    { question: "간호사의 독립운동단체인 \'간우회\'를 창설한 여성 독립운동가는?", answer: "박자혜"},
+    { question: "남편 신채호와 함께 독립운동가들을 적극적으로 지원한 여성 독립운동가는?", answer: "박자혜"},
+    { question: "동경여자학원 재학 시절에 여학생들을 모아 2.8 독립선언문을 낭독한 여성 독립운동가는?", answer: "김마리아"},
+    { question: "조국으로 돌아와서 여성들에게 독립운동 참여를 적극적으로 권유한 여성 독립운동가는?", answer: "김마리아"},
+    { question: "\'대한민국애국부인회\'를 창설하고 회장직을 맡아 여성 독립운동 지휘에 힘쓴 여성 독립운동가는?", answer: "김마리아"},
+    { question: "형제들과 함께 전 재산을 팔아 만주에 \'신흥 무관 학교\'를 설립한 독립운동가는?", answer: "이회영"},
+    { question: "\'신민회\',\'헤이그 특사\',\'의열단\' 등 국외 항일 운동 전반에 관여한 독립운동가는?", answer: "이회영"},
+    { question: "대표적인 저항 시인이고 \'님의 침묵\'이라는 시에서 조국의 독립 염원을 담은 시를 쓴 독립운동가는?", answer: "한용운"},
+    { question: "물산장려운동을 지원하고, 창씨개명 반대운동을 주도한 독립운동가는?", answer: "한용운"},
+    { question: "이토 히로부미를 쏴죽인 독립운동가는?", answer: "안중근"},
+    { question: "일제 총독 암살 시도를 한 여성 독립운동가는?", answer: "남자현"},
+    { question: "한국 최초의 여성 비행사로 복무한 여성 독립운동가는?", answer: "권기옥"},
+    { question: "조선혁명국사정치간부학교 사관생도를 양성한 독립운동가는?", answer: "박차정"},
+    { question: "조선의용대 부녀복무단을 조직하고 항일무장투쟁을 한 독립운동가는?", answer: "박차정"},
+    { question: "1919년 대한민국 임시정부 임시의정원의 경상도 대표의원이 된 독립운동가는?", answer: "김갑"},
+    { question: "1908년에 간도로 건너가 민족학교를 설립하여 국권회복을 위한 인재 양성에 힘을 쓴 독립운동가는?", answer: "이봉우"},
+    { question: "고향의 전답을 팔아 부산에 백산상회를 설립하여 해외 독립 자금을 조달한 독립운동가는?", answer: "안희제"},
+    { question: "일제의 부당함에 맞서 동래고등보통학교 동맹 휴학과 장산 촛불 시위를 주도한 독립운동가는?", answer: "박영출"},
+    { question: "항일 의식이 강했기에 1919년 서울의 3.1운동 소식을 접하자 68세의 노령으로 앞장서서 참여한 여성 독립운동가는?", answer: "윤정은"},
+    { question: "\'아리랑\'등 항일 가곡과 군가를 작곡하여 보급한 독립운동가는?", answer: "한형석"},
+    { question: "충청남도 천안에서 일어난 아우내 독립만세운동을 주도한 독립운동가는?", answer: "김구응"},
+    { question: "\"내 몸은 묶을지언정, 내 마음은 묶을 수 없을 것이다\"를 말한 독립운동가는?", answer: "어윤희"},
+    { question: "\"조국, 이 말처럼 온 인류 각 민족에게 강력과 감동과 영향을 주는 말은 없다\"를 말한 독립운동가는?", answer: "이범석"},
+    { question: "\"내가 죽어서 청년들의 가슴에 조그마한 충격이라도 줄 수 있다면 그것이 내가 소원하는 것이다\"를 말한 독립운동가는?", answer: "강우규"},
+    { question: "\"남의 말로 사람을 평가하지 말라. 말을 옮기지 마라. 과묵하라\"를 말한 독립운동가는?", answer: "홍범도"},
 ];
 
 const levelSettings  = [
@@ -288,7 +299,7 @@ function disableCards() {
     setTimeout(() => {
         firstCard.classList.add('blue');
         secondCard.classList.add('blue');
-    }, 500);
+    }, 1000);
     
     const levelData = levelSettings[currentLevel - 1];
     if (matchedPairs === levelData.size / 2) {
@@ -435,8 +446,6 @@ skipLevelBtn.addEventListener('click', () => {
     if (currentLevel < levelSettings.length) {
         startLevel(currentLevel + 1);
     } else {
-        modalMessage.textContent = '모든 레벨을 클리어하셨습니다!';
-        nextLevelBtn.style.display = 'none';
-        skipLevelBtn.style.display = 'none';
+        alert("마지막 스테이지입니다.")
     }
 });

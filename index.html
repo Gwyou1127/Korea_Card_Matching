@@ -6,7 +6,7 @@
     <title>한국사 카드 게임</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="overflow: hidden;">
     <div id="startScreen" class="screen">
         <h1>한국사 카드 게임</h1>
         <button id="startButton" class="large-button">게임 시작</button>
@@ -20,9 +20,9 @@
                     남은 시간: <span id="timer">0</span>초
                 </div>
             </div>
+            <button id="skipLevelBtn" class="modal-button arrow">다음 레벨</button>
         </div>
         <div id="gameBoard"></div>
-        <button id="skipLevelBtn" class="next-level modal-button">레벨 스킵</button>
     </div>
 
     <div id="modalOverlay" class="hidden">
@@ -30,9 +30,9 @@
             <h2 id="modalTitle">레벨 클리어!</h2>
             <p id="modalMessage"></p>
             <div id="modalButtons">
-                <button id="viewAnswersBtn" class="modal-button">정답 보기</button>
                 <button id="nextLevelBtn" class="modal-button next-level" style="display: none;">다음 레벨</button>
                 <button id="retryBtn" class="modal-button retry-level">다시 시도</button>
+                <button id="viewAnswersBtn" class="modal-button">정답 보기</button>
             </div>
         </div>
     </div>
