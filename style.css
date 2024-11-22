@@ -109,6 +109,11 @@ h1 {
     max-height: none; /* max-height 제한 제거 */
 }
 
+#gameBoard[style*="repeat(1, 1fr)"] .card, #gameBoard[style*="repeat(2, 1fr)"] .card,
+#gameBoard[style*="repeat(3, 1fr)"] .card {
+    font-size: 25px;
+}
+
 .card-inner {
     position: absolute;
     top: 0;
@@ -200,6 +205,10 @@ h1 {
 
 .arrow {
     background-color: #333;
+}
+
+#viewAnswersBtn{
+    color: #333;
 }
 
 .modal-button {

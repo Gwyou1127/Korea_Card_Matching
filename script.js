@@ -16,7 +16,7 @@ const cardPool = [
     { question: "\"그대는 나라를 사랑하는가. 그러면 먼저 그대가 건전한 인격이 되라.\"를 말한 독립운동가는?", answer: "안창호"},
     { question: "\"나는 무식하지만 한가지만은 똑똑히 안다. 내 땅을 남에게 빼앗기지 말아야 한다는 것이다.\"를 말한 독립운동가는?", answer: "홍범도"},
     { question: "\"나라 없는 몸, 무덤은 있어 무엇하랴.\"를 말한 독립운동가는?", answer: "김동삼"},
-    { question: "\"살길은 하나다. 힘을 모으자.\"를 말한 독립운동가는?", answer: "지청전"},
+    { question: "\"살길은 하나다. 힘을 모으자.\"를 말한 독립운동가는?", answer: "지청천"},
     { question: "\"힘을 모아 도와주세, 우리의 명 만세로다.\"를 말한 독립운동가는?", answer: "윤희순"},
     { question: "\"먼 곳을 향하는 생각이 없다면 큰일을 이루기 어렵다.\"를 말한 독립운동가는?", answer: "안중근"},
     { question: "\"뿌리 없는 나무가 어디에서 날 것이며, 나라 없는 백성이 어디서 살 것인가.\"를 말한 독립운동가는?", answer: "안중근"},
@@ -166,7 +166,7 @@ function startLevel(level) {
     previewTimeout = setTimeout(() => {
         hideAllCards();
         startTimer();
-    }, 3000);
+    }, 5000);
 }
 
 function showAllCards() {
@@ -356,10 +356,19 @@ function showLevelAnswers() {
 // 레벨 완료 처리
 function levelComplete() {
     clearInterval(timerInterval);
-    modalTitle.textContent = `레벨 ${currentLevel} 클리어!`;
-    modalMessage.textContent = '축하합니다!';
-    nextLevelBtn.style.display = 'inline-block';
-    modalOverlay.classList.remove('hidden');
+    
+    if (currentLevel === levelSettings.length) {
+        // 마지막 레벨 클리어 시 특별한 축하 화면 표시
+        setTimeout(() => {
+            showGameCompletionCelebration();
+        }, 500);
+    } else {
+        // 일반 레벨 클리어
+        modalTitle.textContent = `레벨 ${currentLevel} 클리어!`;
+        modalMessage.textContent = '축하합니다!';
+        nextLevelBtn.style.display = 'inline-block';
+        modalOverlay.classList.remove('hidden');
+    }
 }   
 
 // 다음 레벨로 이동
@@ -447,5 +456,175 @@ skipLevelBtn.addEventListener('click', () => {
         startLevel(currentLevel + 1);
     } else {
         alert("마지막 스테이지입니다.")
+    }
+});
+
+function showGameCompletionCelebration() {
+    // 기존 게임 보드를 숨김
+    gameBoard.style.display = 'none';
+    gameContainer.style.backgroundColor = 'transparent';
+
+    // 축하 컨테이너 생성
+    const celebrationContainer = document.createElement('div');
+    celebrationContainer.id = 'celebrationContainer';
+    celebrationContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        z-index: 999;
+        animation: fadeIn 1s ease-in;
+    `;
+
+    // 트로피 이미지
+    const trophy = document.createElement('div');
+    trophy.innerHTML = `
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="gold" stroke-width="2">
+            <path d="M6 9H4.5C3.12 9 2 7.88 2 6.5S3.12 4 4.5 4H6v5z"/>
+            <path d="M18 9h1.5c1.38 0 2.5-1.12 2.5-2.5S20.88 4 19.5 4H18v5z"/>
+            <path d="M4 22h16v-3H4v3z"/>
+            <path d="M8 4v10c0 2.21 1.79 4 4 4s4-1.79 4-4V4H8z"/>
+        </svg>
+    `;
+    trophy.style.cssText = `
+        margin-bottom: 20px;
+        animation: bounce 2s infinite;
+    `;
+
+    // 축하 메시지
+    const completionMessage = document.createElement('div');
+    completionMessage.innerHTML = `
+        <h1 style="color: white; font-size: 2.5em; margin-bottom: 20px; text-align: center;">
+            축하합니다!<br>모든 레벨을 클리어하셨습니다!
+        </h1>
+    `;
+
+    // 버튼 컨테이너
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.cssText = `
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    `;
+
+    // 처음부터 다시하기 버튼
+    const restartButton = document.createElement('button');
+    restartButton.textContent = '처음부터 다시하기';
+    restartButton.style.cssText = `
+        padding: 15px 30px;
+        font-size: 1.2em;
+        background: #ffd700;
+        color: #333;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        font-family: 'Dokrip';
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    `;
+    restartButton.addEventListener('mouseover', () => {
+        restartButton.style.transform = 'scale(1.05)';
+        restartButton.style.boxShadow = '0 6px 20px rgba(0,0,0,0.3)';
+    });
+    restartButton.addEventListener('mouseout', () => {
+        restartButton.style.transform = 'scale(1)';
+        restartButton.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+    });
+    restartButton.addEventListener('click', () => {
+        celebrationContainer.remove();
+        gameBoard.style.display = 'grid';
+        gameContainer.style.backgroundColor = 'white';
+        currentLevel = 1;
+        startLevel(1);
+    });
+
+    // 요소들을 컨테이너에 추가
+    buttonContainer.appendChild(restartButton);
+    celebrationContainer.appendChild(trophy);
+    celebrationContainer.appendChild(completionMessage);
+    celebrationContainer.appendChild(buttonContainer);
+
+    // 폭죽 효과 추가
+    for (let i = 0; i < 50; i++) {
+        createFirework(celebrationContainer);
+    }
+
+    document.body.appendChild(celebrationContainer);
+}
+
+function createFirework(container) {
+    const firework = document.createElement('div');
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    
+    firework.style.cssText = `
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: ${colors[Math.floor(Math.random() * colors.length)]};
+        pointer-events: none;
+    `;
+
+    const startX = Math.random() * window.innerWidth;
+    const startY = window.innerHeight;
+    const endX = startX + (Math.random() - 0.5) * 400;
+    const endY = Math.random() * window.innerHeight / 2;
+
+    firework.style.left = `${startX}px`;
+    firework.style.top = `${startY}px`;
+
+    container.appendChild(firework);
+
+    firework.animate([
+        { transform: `translate(0, 0)`, opacity: 1 },
+        { transform: `translate(${endX - startX}px, ${endY - startY}px)`, opacity: 0 }
+    ], {
+        duration: 1000 + Math.random() * 1000,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        fill: 'forwards'
+    }).onfinish = () => firework.remove();
+}
+
+// 스타일 추가
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-30px);
+        }
+        60% {
+            transform: translateY(-15px);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'g') { // 'g' 키를 눌렀을 때
+        if (currentLevel === levelSettings.length) {
+            showGameCompletionCelebration(); // 모든 레벨 클리어 화면
+        } else {
+            levelComplete(); // 현재 레벨 클리어 화면
+        }
     }
 });
